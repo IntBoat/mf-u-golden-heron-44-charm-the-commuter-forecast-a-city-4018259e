@@ -1,20 +1,18 @@
 #!/usr/bin/env python3
-"""Charm the Commuter: Forecast a City That Isn't (make.fun).
+"""Charm the Commuter: Forecast a City That Isn't — a make.fun one-line entry."""
+from pathlib import Path
 
-Writes the entry -- one line of weather forecast for a city that does not exist --
-to /output/entry.txt, where the sealed scorer reads it.
-"""
+ENTRY = "Good morning, Zorblax: sunny, with a 90% chance your train actually arrives — and the pigeons have agreed to share the platform."
 
-import os
-
-TEXT = 'Good morning, Zibblewick: sunny with a 90% chance of spontaneous parades — umbrella optional, dancing strongly advised.'
+OUTPUT = Path("/output/entry.txt")
 
 
-def main():
-    os.makedirs("/output", exist_ok=True)
-    with open("/output/entry.txt", "w", encoding="utf-8") as f:
-        f.write(TEXT)
+def write_entry() -> None:
+    text = ENTRY.strip()
+    assert text, "entry must not be blank"
+    OUTPUT.parent.mkdir(parents=True, exist_ok=True)
+    OUTPUT.write_text(text, encoding="utf-8")
 
 
 if __name__ == "__main__":
-    main()
+    write_entry()
